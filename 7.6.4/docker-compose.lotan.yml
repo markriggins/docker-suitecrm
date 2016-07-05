@@ -1,0 +1,36 @@
+version: '2'
+
+services:
+  suitecrm:
+    image: markriggins/suitecrm:$TAG
+    build: .
+    ports:
+      - "80"
+    links:
+      - "db"
+    depends_on:
+      - "db"
+    environment:
+      DB_TYPE: mysql
+      DB_MANAGER: MysqlManager
+      DB_HOST_NAME: db
+      DB_TCP_PORT: 3306
+      DB_USER_NAME: suitecrm
+      DB_PASSWORD: EvXTC3R7Sef5aB725hKv
+      DATABASE_NAME: suitecrm
+
+  dbdata:
+    image: tianon/true
+    volumes:
+      - /var/lib/mysql
+  db:
+    image: mysql:5.6
+    volumes_from:
+      - dbdata
+    ports:
+      - 3306
+    environment:
+      MYSQL_ROOT_PASSWORD: EvXTC3R7Sef5aB725hKv
+      MYSQL_DATABASE: suitecrm
+      MYSQL_USER: suitecrm
+      MYSQL_PASSWORD: B3fyAKRyFpaMR5vyPMJz
